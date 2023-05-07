@@ -1,0 +1,37 @@
+<div class="container">
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand ms-3" href="#">
+            <img src="https://www.medibuddy.in/assets/images/medibuddy-icon.png" alt="logo" width="30" height="24" class="d-inline-block align-text-top">
+           <span class="text-primary fs-4"> Medlife</span>
+          </a>
+          <div class="text-end">
+            <a class="text-decoration-none me-3">About Us</a>
+            <a class="text-decoration-none ms-2 cursor" data-bs-toggle="modal" data-bs-target="#loginmodal" *ngIf="!isuserloggedIn">Login</a>
+            <span class="text-decoration-none ms-2 cursor" *ngIf="isuserloggedIn">{{userDetails?.userName}}</span>
+         <i class="bi bi-cart ms-3 fs-5 cursor"  routerLink="/cart"></i><span class="border rounded-circle px-1 bg-danger text-white cart">{{cartcounter | async}}</span>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="modal fade" id="loginmodal" tabindex="-1" aria-labelledby="loginmodal" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginmodal">{{actionName === 'signup'? 'sign up': 'Sign In'}}</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" #closeBtn></button>
+          </div>
+          <div class="modal-body">
+          <app-signin *ngIf="actionName === 'SignIn'" (emitAction)= "getAction($event)"></app-signin>
+          <app-signup *ngIf="actionName === 'signup'"></app-signup>
+          </div>
+         
+            <div class="d-grid gap-2 m-4">
+              <button class="btn btn-primary" type="button" *ngIf="actionName === 'signup'" (click)="changeAction('SignIn')">Sign in</button>
+              <button class="btn btn-primary" type="button" *ngIf= "actionName === 'SignIn'" (click)="changeAction('signup')">Sign up</button>
+            </div>
+         
+        </div>
+      </div>
+    </div>
